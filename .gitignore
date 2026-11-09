@@ -1,0 +1,10 @@
+plant-front/node_modules/
+plant-front/.next/
+plant-front/.env.local
+plant-api/build/
+plant-api/.gradle/
+.idea/
+*.iml
+crawling/__pycache__/
+crawling/.venv/
+plant-api/src/main/resources/application.properties

@@ -1,0 +1,10 @@
+// AuthResponse.java
+package com.example.plantapi.dto;
+
+import com.example.plantapi.domain.User;
+
+public record AuthResponse(Long id, String email, String nickname) {
+    public static AuthResponse from(User user) {
+        return new AuthResponse(user.getId(), user.getEmail(), user.getNickname());
+    }
+}
