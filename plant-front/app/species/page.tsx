@@ -1,6 +1,6 @@
 /* 도감 목록 페이지 */
 import Link from "next/link";
-import { getSpecies } from "@/src/lib/api";
+import { getSpecies } from "@/lib/api";
 
 type Props = {
   searchParams: Promise<{ keyword?: string; light?: string; difficulty?: string }>;

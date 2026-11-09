@@ -66,3 +66,13 @@ export async function getSpeciesById(id: number): Promise<Species | null> {
   if (!res.ok) throw new Error("도감을 불러오지 못했습니다");
   return res.json();
 }
+
+export async function getMyPlants(cookie?: string): Promise<MyPlant[] | null> {
+  const res = await fetch(`${API_BASE}/api/my-plants?sort=due`, {
+    headers: cookie ? { Cookie: cookie } : {},
+    cache: "no-store",
+  });
+  if (res.status === 401 || res.status === 403) return null; // 로그인 안 됨
+  if (!res.ok) throw new Error("내 식물을 불러오지 못했습니다");
+  return res.json();
+}
