@@ -6,13 +6,13 @@ export default function SpeciesSearchBar({
   light?: string;
 }) {
   return (
-    <form className="mt-4 flex gap-2">
+    <form className="mt-4 flex flex-wrap gap-2">
       <input
         name="keyword"
         defaultValue={keyword ?? ""}
         placeholder="식물 이름으로 검색"
-        className="flex-1 rounded border px-3 py-2"
-      />
+        className="min-w-0 flex-1 rounded border px-3 py-2"
+      />  
       <select name="light" defaultValue={light ?? ""} className="rounded border px-2 py-2">
         <option value="">광도 전체</option>
         <option value="LOW">낮은 광도</option>

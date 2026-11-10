@@ -8,24 +8,35 @@ export default async function Header() {
   const me = await getMe(cookie);
 
   return (
-    <header className="border-b">
-      <div className="mx-auto flex max-w-2xl items-center justify-between p-4">
-        <Link href="/species" className="text-lg font-bold">🌱 반려식물</Link>
-        <nav className="flex items-center gap-4 text-sm">
-          <Link href="/species">도감</Link>
-          <Link href="/plants">내 식물</Link>
-          {me ? (
-            <>
-              <span>{me.nickname ?? me.email}님</span>
-              <LogoutButton />
-            </>
-          ) : (
-            <Link href="/login" className="rounded bg-green-600 px-3 py-1.5 text-white">
-              로그인
-            </Link>
-          )}
-        </nav>
+    <header className="border-b px-4 py-3">
+      <div className="text-center">
+        <Link href="/species" className="text-xl font-bold">
+          🌿 작은 정원
+        </Link>
       </div>
+      <nav className="mt-2 flex items-center justify-center gap-6 text-sm">
+        <Link href="/species" className="whitespace-nowrap">
+          식물 도감
+        </Link>
+        <Link href="/plants" className="whitespace-nowrap">
+          나의 정원
+        </Link>
+        {me ? (
+          <>
+            <Link href="/mypage" className="whitespace-nowrap">
+              마이페이지
+            </Link>
+            <LogoutButton />
+          </>
+        ) : (
+          <Link
+            href="/login"
+            className="whitespace-nowrap rounded bg-green-600 px-3 py-1.5 text-white"
+          >
+            로그인
+          </Link>
+        )}
+      </nav>
     </header>
   );
 }

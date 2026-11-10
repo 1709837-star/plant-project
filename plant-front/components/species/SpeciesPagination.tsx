@@ -1,38 +1,36 @@
 import Link from "next/link";
 
-export default function SpeciesPagination({
-  currentPage,
-  totalPages,
-  buildHref,
-}: {
+type Props = {
   currentPage: number;
   totalPages: number;
-  buildHref: (p: number) => string;
-}) {
+  buildHref: (page: number) => string;
+};
+
+export default function SpeciesPagination({ currentPage, totalPages, buildHref }: Props) {
   if (totalPages <= 1) return null;
-  const start = Math.floor(currentPage / 10) * 10;
-  const pages = Array.from({ length: Math.min(10, totalPages - start) }, (_, i) => start + i);
 
   return (
-    <div className="mt-6 flex items-center justify-center gap-1">
-      {start > 0 ? (
-        <Link href={buildHref(start - 1)} className="rounded border px-3 py-2">← Prev</Link>
-      ) : (
-        <span className="rounded border px-3 py-2 text-gray-300">← Prev</span>
+    <div className="mt-6 flex flex-wrap items-center justify-center gap-1">
+      {currentPage > 0 && (
+        <Link href={buildHref(currentPage - 1)} className="rounded border px-2 py-1 text-sm">
+          ←
+        </Link>
       )}
-      {pages.map((p) => (
+      {Array.from({ length: totalPages }, (_, i) => (
         <Link
-          key={p}
-          href={buildHref(p)}
-          className={`rounded border px-3 py-2 ${p === currentPage ? "bg-green-600 font-bold text-white" : ""}`}
+          key={i}
+          href={buildHref(i)}
+          className={`rounded border px-2 py-1 text-sm ${
+            i === currentPage ? "bg-green-600 text-white" : ""
+          }`}
         >
-          {p + 1}
+          {i + 1}
         </Link>
       ))}
-      {start + 10 < totalPages ? (
-        <Link href={buildHref(start + 10)} className="rounded border px-3 py-2">Next →</Link>
-      ) : (
-        <span className="rounded border px-3 py-2 text-gray-300">Next →</span>
+      {currentPage + 1 < totalPages && (
+        <Link href={buildHref(currentPage + 1)} className="rounded border px-2 py-1 text-sm">
+          →
+        </Link>
       )}
     </div>
   );

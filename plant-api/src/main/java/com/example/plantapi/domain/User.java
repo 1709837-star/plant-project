@@ -39,4 +39,10 @@ public class User extends BaseEntity {
     public void change(String nickname) {
         this.nickname = nickname;
     }
+
+    // 비밀번호 변경
+    public void changePassword(String encodedPassword) {
+        this.password = encodedPassword;
+    }
+
 }

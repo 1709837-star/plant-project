@@ -28,38 +28,55 @@ export default async function MyPlantsPage() {
       ) : (
         <ul className="mt-6 space-y-3">
           {plants.map((p) => (
-            <li key={p.id} className="flex items-center justify-between rounded border p-4">
+            <li key={p.id} className="flex items-start justify-between rounded border p-4">
               <div>
                 <p className="text-lg font-semibold">
                   <Link href={`/plants/${p.id}`} className="hover:underline">
                     {p.nickname}
                   </Link>
-                  {p.speciesName && (
-                    <span className="ml-2 text-sm font-normal text-gray-500">{p.speciesName}</span>
-                  )}
                 </p>
                 <p className="mt-1 text-sm text-gray-600">
+                  {p.speciesName}
+                </p>  
+                <p className="mt-1 text-sm text-gray-600">
                   {p.location ?? ""}
-                  {p.nextWateringDate && ` · 다음 물주기 ${p.nextWateringDate}`}
+                </p>
+                <p className="mt-1 text-sm text-gray-600">
+                  {p.nextWateringDate && ` 다음 물주기 ${p.nextWateringDate}`}
                 </p>
               </div>
-              <div className="flex items-center gap-3">
-                <span
-                  className={`rounded px-2 py-1 text-sm font-bold ${
-                    p.dDay === null
-                      ? "bg-gray-100 text-gray-600"
-                      : p.dDay <= 0
-                        ? "bg-red-100 text-red-700"
-                        : p.dDay <= 3
-                          ? "bg-yellow-100 text-yellow-800"
-                          : "bg-green-100 text-green-700"
-                  }`}
-                >
-                  {p.dDay === null ? "D-day 없음" : p.dDay === 0 ? "D-day" : p.dDay < 0 ? `D+${-p.dDay}` : `D-${p.dDay}`}
-                </span>
-                <WaterButton plantId={p.id} />
+
+              <div className="flex flex-col items-end gap-2">
+                {p.photoUrl ? (
+                  <img
+                    src={`http://127.0.0.1:8080${p.photoUrl}`}
+                    alt={p.nickname}
+                    className="h-24 w-32 rounded object-cover"
+                  />
+                ) : (
+                  <div className="flex h-24 w-32 items-center justify-center rounded bg-green-50 text-3xl">
+                    🌱
+                  </div>
+                )}
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`rounded px-2 py-1 text-sm font-bold ${
+                      p.dDay === null
+                        ? "bg-gray-100 text-gray-600"
+                        : p.dDay <= 0
+                          ? "bg-red-100 text-red-700"
+                          : p.dDay <= 3
+                            ? "bg-yellow-100 text-yellow-800"
+                            : "bg-green-100 text-green-700"
+                    }`}
+                  >
+                    {p.dDay === null ? "D-day 없음" : p.dDay === 0 ? "D-day" : p.dDay < 0 ? `D+${-p.dDay}` : `D-${p.dDay}`}
+                  </span>
+                  <WaterButton plantId={p.id} />
+                </div>
               </div>
             </li>
+
           ))}
         </ul>
       )}

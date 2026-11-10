@@ -12,7 +12,7 @@ type Props = {
 export default async function SpeciesPage({ searchParams }: Props) {
   const params = await searchParams;
   const currentPage = Math.max(0, (Number(params.page ?? "1") || 1) - 1);
-  const page = await getSpecies({ ...params, page: currentPage });
+  const page = await getSpecies({ page: currentPage, size: 20 });
 
   const buildHref = (p: number) => {
     const q = new URLSearchParams();
@@ -35,7 +35,7 @@ export default async function SpeciesPage({ searchParams }: Props) {
       </Link>
       </div>
       <p className="mt-1 text-sm text-gray-500">
-        농사로에서 크롤링한 실내정원용 식물 {page.totalElements}종
+        실내정원용 식물 {page.totalElements}종
       </p>
       <SpeciesSearchBar keyword={params.keyword} light={params.light} />
       <SpeciesList species={page.content} />
