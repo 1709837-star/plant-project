@@ -2,6 +2,7 @@
 
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -26,7 +27,7 @@ export default function LoginPage() {
         setError("이메일 또는 비밀번호가 틀렸습니다");
         return;
       }
-      router.push("/plants");
+      router.push("/species");
       router.refresh();
     } catch {
       setError("로그인에 실패했습니다");
@@ -62,6 +63,12 @@ export default function LoginPage() {
         >
           {loading ? "로그인 중..." : "로그인"}
         </button>
+        <p className="mt-4 text-center text-sm text-gray-500">
+            계정이 없나요?{" "}
+          <Link href="/signup" className="text-green-600 hover:underline">
+            회원가입
+          </Link>
+        </p>
       </form>
     </main>
   );

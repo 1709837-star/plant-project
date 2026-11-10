@@ -1,12 +1,16 @@
 package com.example.plantapi.controller;
 
+import com.example.plantapi.domain.MyPlant;
 import com.example.plantapi.dto.*;
 import com.example.plantapi.service.MyPlantService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +50,15 @@ public class MyPlantController {
     public Map<String, Long> delete(@PathVariable Long id, Authentication auth) {
         myPlantService.delete(id, auth);
         return Map.of("id", id);
+    }
+
+    @PostMapping("/{id}/photo")
+    public ResponseEntity<Map<String, Object>> uploadPhoto(
+            @PathVariable Long id,
+            @RequestParam("file") MultipartFile file,
+            Authentication authentication) throws IOException {
+        MyPlant plant = myPlantService.uploadPhoto(id, file, authentication.getName());
+        return ResponseEntity.ok(Map.of("id", plant.getId(), "photoUrl", plant.getPhotoUrl()));
     }
 
     // 물주기 버튼

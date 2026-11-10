@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getMyPlants } from "@/lib/api";
-import WaterButton from "@/components/WaterButton";
+import WaterButton from "@/components/myplants/WaterButton";
 
 export default async function MyPlantsPage() {
   const cookieStore = await cookies();
@@ -31,7 +31,9 @@ export default async function MyPlantsPage() {
             <li key={p.id} className="flex items-center justify-between rounded border p-4">
               <div>
                 <p className="text-lg font-semibold">
-                  {p.nickname}
+                  <Link href={`/plants/${p.id}`} className="hover:underline">
+                    {p.nickname}
+                  </Link>
                   {p.speciesName && (
                     <span className="ml-2 text-sm font-normal text-gray-500">{p.speciesName}</span>
                   )}

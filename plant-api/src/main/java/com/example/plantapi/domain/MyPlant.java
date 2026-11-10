@@ -63,15 +63,9 @@ public class MyPlant extends BaseEntity{
     @Builder.Default
     private List<WateringLog> wateringLogs = new ArrayList<>();
 
-    // 실제 쓸 간격: 직접 입력한 간격이 있으면 그거, 없으면 도감의 오늘 계절 일수
+    // 내 식물 간격
     public Integer getEffectiveWateringIntervalDays() {
-        if (wateringIntervalDays != null) {
-            return wateringIntervalDays;
-        }
-        if (species != null) {
-            return species.getWateringIntervalDays(LocalDate.now().getMonthValue());
-        }
-        return null;
+        return wateringIntervalDays;
     }
 
     // 다음 물 줄 날 = 마지막 물 준 날 + 간격

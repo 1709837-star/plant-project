@@ -11,7 +11,13 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
@@ -132,4 +138,23 @@ public class MyPlantService {
         myPlantOrThrow(log.getMyPlant().getId(), currentUser(auth)); // 남의 기록인지 확인만 해
         wateringLogRepository.delete(log);
     }
+
+    // 사진 업로드
+    @Transactional
+    public MyPlant uploadPhoto(Long id, MultipartFile file, String email) throws IOException {
+        MyPlant plant = myPlantRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("식물을 찾을 수 없습니다"));
+        if (!plant.getUser().getEmail().equals(email)) {
+            throw new AccessDeniedException("본인 식물만 사진을 올릴 수 있습니다");
+        }
+        String uploadDir = "uploads/my-plants";
+        Files.createDirectories(Path.of(uploadDir));
+        String ext = StringUtils.getFilenameExtension(file.getOriginalFilename());
+        String filename = id + "_" + System.currentTimeMillis() + "." + ext;
+        Path path = Path.of(uploadDir, filename);
+        Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+        plant.updatePhoto("/uploads/my-plants/" + filename);
+        return plant;
+    }
+
 }

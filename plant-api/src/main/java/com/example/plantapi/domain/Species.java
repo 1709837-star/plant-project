@@ -22,9 +22,33 @@ public class Species extends BaseEntity {
     @Column(nullable = false, unique = true, length = 100)
     private String name;
 
-    // 학명, 예: Monstera deliciosa
-    @Column(length = 200)
-    private String scientificName;
+    // [상세정보] 분류, 예: 관엽식물
+    @Column(length = 50)
+    private String category;
+
+    // [상세정보] 생육형태, 예: 직립형
+    @Column(length = 50)
+    private String growthForm;
+
+    // [상세정보] 생장높이, 예: 30~60cm — 숫자+단위가 섞여서 String으로 가
+    @Column(length = 50)
+    private String growthHeight;
+
+    // [상세정보] 생장너비, 예: 30~50cm
+    @Column(length = 50)
+    private String growthWidth;
+
+    // [관리정보] 배치장소, 예: 거실 창측
+    @Column(length = 100)
+    private String placement;
+
+    // [관리정보] 생육적온, 예: 18~25°C
+    @Column(length = 50)
+    private String optimalTemp;
+
+    // [관리정보] 습도, 예: 40~70%
+    @Column(length = 50)
+    private String humidity;
 
     // 광도: LOW / MEDIUM / HIGH
     @Column(length = 20)
@@ -37,16 +61,36 @@ public class Species extends BaseEntity {
     // 겨울 최저온도(℃), 예: 몬스테라 10
     private Integer minWinterTemp;
 
-    // 계절별 물주기 일수, 크롤링 정제 단계에서 문장을 일수로 바꿔서 넣는 값
-    // 못 바꾸면 null로 두면 돼
-    private Integer waterSpringDays;
-    private Integer waterSummerDays;
-    private Integer waterAutumnDays;
-    private Integer waterWinterDays;
-
     // 크롤링 원문, 예: "겉흙이 마르면 충분히"
     @Column(length = 1000)
     private String waterNote;
+
+    // 계절별 물주기 이미지 URL (농사로 gif 주소 그대로 저장)
+    @Column(length = 500)
+    private String waterSpringImg;
+
+    @Column(length = 500)
+    private String waterSummerImg;
+
+    @Column(length = 500)
+    private String waterAutumnImg;
+
+    @Column(length = 500)
+    private String waterWinterImg;
+
+    // 계절별 물주기 문장 (이미지 alt 텍스트)
+    @Column(length = 500)
+    private String waterSpringNote;
+
+    @Column(length = 500)
+    private String waterSummerNote;
+
+    @Column(length = 500)
+    private String waterAutumnNote;
+
+    @Column(length = 500)
+    private String waterWinterNote;
+
 
     // 출처, 농사로 상세 주소
     @Column(length = 500)
@@ -56,18 +100,4 @@ public class Species extends BaseEntity {
     @Column(length = 500)
     private String imageUrl;
 
-    // 오늘 월(1~12)을 주면, 그 계절의 물주기 일수를 돌려줘
-    // D-day 계산할 때 MyPlant 쪽에서 이걸 부르게 될 거야
-    public Integer getWateringIntervalDays(int month) {
-        if (month >= 3 && month <= 5) {
-            return waterSpringDays;
-        }
-        if (month >= 6 && month <= 8) {
-            return waterSummerDays;
-        }
-        if (month >= 9 && month <= 11) {
-            return waterAutumnDays;
-        }
-        return waterWinterDays; // 12, 1, 2월
-    }
 }

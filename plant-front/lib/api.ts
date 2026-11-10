@@ -5,16 +5,25 @@ export const API_BASE = process.env.PLANT_API ?? "http://127.0.0.1:8080";
 export type Species = {
   id: number;
   name: string;
-  scientificName: string | null;
+  category: string | null;
+  growthForm: string | null;
+  growthHeight: string | null;
+  growthWidth: string | null;
+  placement: string | null;
+  optimalTemp: string | null;
+  humidity: string | null;
   lightLevel: string | null;
   difficulty: string | null;
   minWinterTemp: number | null;
-  waterSpringDays: number | null;
-  waterSummerDays: number | null;
-  waterAutumnDays: number | null;
-  waterWinterDays: number | null;
-  wateringIntervalDays: number | null;
   waterNote: string | null;
+  waterSpringImg: string | null;
+  waterSummerImg: string | null;
+  waterAutumnImg: string | null;
+  waterWinterImg: string | null;
+  waterSpringNote: string | null;
+  waterSummerNote: string | null;
+  waterAutumnNote: string | null;
+  waterWinterNote: string | null;
   sourceUrl: string | null;
   imageUrl: string | null;
 };
@@ -47,11 +56,16 @@ export async function getSpecies(params?: {
   keyword?: string;
   light?: string;
   difficulty?: string;
+  page?: number;
+  size?: number;
 }): Promise<Page<Species>> {
   const query = new URLSearchParams();
   if (params?.keyword) query.set("keyword", params.keyword);
   if (params?.light) query.set("light", params.light);
   if (params?.difficulty) query.set("difficulty", params.difficulty);
+  if (params?.page != null) query.set("page", String(params.page));
+  if (params?.size != null) query.set("size", String(params.size));
+
 
   const res = await fetch(`${API_BASE}/api/species?${query.toString()}`, {
     cache: "no-store",
@@ -74,5 +88,39 @@ export async function getMyPlants(cookie?: string): Promise<MyPlant[] | null> {
   });
   if (res.status === 401 || res.status === 403) return null; // 로그인 안 됨
   if (!res.ok) throw new Error("내 식물을 불러오지 못했습니다");
+  return res.json();
+}
+
+export async function getMyPlant(id: number, cookie?: string): Promise<MyPlant | null> {
+  const res = await fetch(`${API_BASE}/api/my-plants/${id}`, {
+    headers: cookie ? { Cookie: cookie } : {},
+    cache: "no-store",
+  });
+  if (res.status === 401 || res.status === 403 || res.status === 404) return null;
+  if (!res.ok) throw new Error("내 식물 상세를 불러오지 못했습니다");
+  return res.json();
+}
+
+export type WateringLog = {
+  id: number;
+  wateredDate: string;
+  memo: string | null;
+};
+
+export async function getWaterings(id: number, cookie?: string): Promise<WateringLog[]> {
+  const res = await fetch(`${API_BASE}/api/my-plants/${id}/waterings`, {
+    headers: cookie ? { Cookie: cookie } : {},
+    cache: "no-store",
+  });
+  if (!res.ok) return [];
+  return res.json();
+}
+
+export async function getMe(cookie?: string) {
+  const res = await fetch(`${API_BASE}/api/auth/me`, {
+    headers: cookie ? { Cookie: cookie } : {},
+    cache: "no-store",
+  });
+  if (!res.ok) return null;
   return res.json();
 }
