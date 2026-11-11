@@ -88,9 +88,10 @@ export default function MyPlantEditForm({ plant }: { plant: MyPlant }) {
       </label>
       <label className="block">
         <span className="text-sm text-gray-600">메모</span>
-        <input
+        <textarea
           value={memo}
           onChange={(e) => setMemo(e.target.value)}
+          rows={5}
           className="mt-1 w-full rounded border px-3 py-2"
         />
       </label>

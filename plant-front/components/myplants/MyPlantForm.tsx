@@ -125,7 +125,7 @@ export default function MyPlantForm({ speciesList, initialSpeciesId }: Props) {
       noSpecies ? "border-green-600 bg-green-100 font-semibold" : "hover:bg-green-50"
     }`}
   >
-    {noSpecies ? "● 도감에 없는 식물 (선택됨 — 다시 누르면 취소)" : "○ 도감에 없는 식물"}
+    {noSpecies ? "● 도감에 없는 식물 (다시 누르면 취소)" : "○ 도감에 없는 식물"}
   </button>
 </div>
 

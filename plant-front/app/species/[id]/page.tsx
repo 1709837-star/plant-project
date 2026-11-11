@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSpeciesById } from "@/lib/api";
-import BackButton from "@/components/BackButton";
+import BackButton from "@/components/common/BackButton";
 
 
 type Params = { params: Promise<{ id: string }> };
@@ -125,7 +125,7 @@ const legend = Array.from(legendMap, ([img, note]) => ({ img, note }));
 
       {/* 위: 계절별 물주기 — 아이콘만 */}
 <section className="mt-6">
-  <h2 className="text-lg font-bold">💧계절별 물주기</h2>
+  <h2 className="text-lg font-bold">💧 계절별 물주기</h2>
   <ul className="mt-2 grid grid-cols-4 gap-2 text-center">
     {seasons.map((s) => (
       <li key={s.label} className="rounded border p-3">

@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getMe } from "@/lib/api";
-import ChangePasswordForm from "@/components/ChangePasswordForm";
-import BackButton from "@/components/BackButton";
+import ChangePasswordForm from "@/components/mypage/ChangePasswordForm";
+import BackButton from "@/components/common/BackButton";
 
 export default async function PasswordPage() {
   const cookie = (await cookies()).toString();
