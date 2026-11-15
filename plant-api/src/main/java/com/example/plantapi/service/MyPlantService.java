@@ -1,5 +1,5 @@
 package com.example.plantapi.service;
-
+/* 내 식물 : 실질적으로 일하는 곳 */
 import com.example.plantapi.domain.MyPlant;
 import com.example.plantapi.domain.Species;
 import com.example.plantapi.domain.User;

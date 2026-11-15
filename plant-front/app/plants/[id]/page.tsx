@@ -1,3 +1,6 @@
+/* 내 식물 상세 */
+// 서버 컴포넌트
+
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
@@ -11,10 +14,10 @@ import WateringLogList from "@/components/myplants/WateringLogList";
 type Params = { params: Promise<{ id: string }> };
 
 export default async function MyPlantDetailPage({ params }: Params) {
-  const { id } = await params;
+  const { id } = await params;  // params : /plant/5에 들어가면 id="5"
   const cookieStore = await cookies();
-  const cookie = cookieStore.toString();
-  const plant = await getMyPlant(Number(id), cookie);
+  const cookie = cookieStore.toString(); // 이 식물이 내 식물인지 확인해야 해서
+  const plant = await getMyPlant(Number(id), cookie); // 문자를 number로 바꿈
 
   if (!plant) {
     // 로그인 안 했으면 로그인으로, 없는 식물이면 404로
@@ -42,10 +45,7 @@ export default async function MyPlantDetailPage({ params }: Params) {
         <div className="flex h-48 w-full items-center justify-center rounded bg-green-50 text-7xl">🌱</div>
       )}
       <PhotoUpload plantId={plant.id} />
-
       <MyPlantDetailInfo plant={plant} />
-
-
 
       <div className="mt-6 flex gap-3">
         <WaterButton plantId={plant.id} />

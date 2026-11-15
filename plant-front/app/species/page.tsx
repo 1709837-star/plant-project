@@ -1,18 +1,32 @@
 /* 도감 목록 페이지 */
+// 서버 컴포넌트
+
 import { getSpecies } from "@/lib/api";
 import SpeciesSearchBar from "@/components/species/SpeciesSearchBar";
 import SpeciesList from "@/components/species/SpeciesList";
 import SpeciesPagination from "@/components/species/SpeciesPagination";
 import Link from "next/link";
 
+// Next.js가 주소창에서 읽어서 줌
 type Props = {
-  searchParams: Promise<{ keyword?: string; light?: string; difficulty?: string; page?: string }>;
+  searchParams: Promise<{ 
+    keyword?: string; 
+    light?: string; 
+    difficulty?: string; 
+    page?: string 
+  }>;
 };
 
 export default async function SpeciesPage({ searchParams }: Props) {
   const params = await searchParams;
-  const currentPage = Math.max(0, (Number(params.page ?? "1") || 1) - 1);
-  const page = await getSpecies({ page: currentPage, size: 20 });
+  const currentPage = Math.max(0, (Number(params.page ?? "1") || 1) - 1); // 스프링은 0부터 세니까 -1 해줌
+  const page = await getSpecies({
+    page: currentPage,
+    size: 20,
+    keyword: params.keyword,
+    light: params.light,
+    difficulty: params.difficulty,
+  });
 
   const buildHref = (p: number) => {
     const q = new URLSearchParams();
@@ -21,7 +35,9 @@ export default async function SpeciesPage({ searchParams }: Props) {
     if (params.difficulty) q.set("difficulty", params.difficulty);
     q.set("page", String(p + 1));
     return `/species?${q.toString()}`;
-  };
+  }; 
+  // p를 받으면 검색어랑 필터는 그대로 유치한 채로 page만 p+1로 바꿔서 주소를 만들어줌
+  // p는 0부터 세는 번호고, 주소에는 1부터 세는 번호가 들어가야 하니까 +1을 함
 
   return (
     <main className="mx-auto max-w-2xl p-6">

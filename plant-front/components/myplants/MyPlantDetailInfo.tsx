@@ -2,6 +2,7 @@ import type { MyPlant } from "@/lib/api";
 import DDayBadge from "@/components/myplants/DDayBadge";
 
 export default function MyPlantDetailInfo({ plant }: { plant: MyPlant }) {
+  // 내 식물 상세(app/plants/[id]/page.tsx)에서 plant를 통째로 넘겨줌
   return (
     <div className="mt-4 rounded border p-4 text-base">
       <div className="flex items-center justify-between py-1">

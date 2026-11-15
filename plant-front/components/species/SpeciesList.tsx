@@ -1,9 +1,11 @@
+/* << 목록 껍데기 >> */
+
 import type { Species } from "@/lib/api";
 import SpeciesListItem from "./SpeciesListItem";
 
 export default function SpeciesList({ species }: { species: Species[] }) {
-  if (species.length === 0) {
-    return <p className="mt-8 text-gray-500">검색 결과가 없습니다.</p>;
+  if (species.length === 0) {     // 배열 안에 식물이 없을 때
+      return <p className="mt-8 text-gray-500">검색 결과가 없습니다.</p>;
   }
   return (
     <ul className="mt-6 space-y-3">

@@ -1,4 +1,8 @@
-/* 회원가입 폼 (클라이언트 컴포넌트) */
+/* 회원가입 폼 */
+// 클라이언트 컴포넌트 - 입력값을 받아야 함 
+
+// 입력값 모으기 > Route Handler에 POST > 실패하면 문구 보여주기 > 성공하면 로그인 페이지로 이동 + 헤더 새로고침
+
 "use client";
 
 import Link from "next/link";
@@ -7,18 +11,20 @@ import { useState } from "react";
 
 export default function SignupPage() {
   const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [nickname, setNickname] = useState("");
+  const [nickname, setNickname] = useState(""); // << 로그인폼에서 닉네임 부분 추가
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
+    e.preventDefault(); // 폼이 새로고침하는 기본 동작을 막음 (입력값 안 날아가게)
     setError("");
     setLoading(true);
+
     try {
-      const res = await fetch("/api/auth/signup", {
+      const res = await fetch("/api/auth/signup", { // 스프링에 직접 가는게 아니라, Route Handler api/auth/login을 부름
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, nickname }),
@@ -26,10 +32,10 @@ export default function SignupPage() {
       if (!res.ok) {
         const data = await res.json().catch(() => null);
         setError(data?.message ?? "회원가입에 실패했습니다. 이메일 중복이나 비밀번호를 확인해주세요.");
-        return;
+        return; // 스프링이 "이미 가입된 메일입니다" 같은 메시지를 주면 그걸 보여주고, 아니면 ?? 뒤에 있는 기본 문구
       }
-      // 가입 성공하면 로그인 페이지로 보내
-      router.push("/login");
+      router.push("/login");  // 가입 성공하면 로그인 페이지로 보내
+
     } catch {
       setError("회원가입에 실패했습니다");
     } finally {

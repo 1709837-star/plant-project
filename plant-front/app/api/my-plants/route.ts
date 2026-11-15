@@ -1,3 +1,5 @@
+/* 내 식물 등록 중계 */
+
 import { forward } from "@/lib/forward";
 import { NextRequest } from "next/server";
 

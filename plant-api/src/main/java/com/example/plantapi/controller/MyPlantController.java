@@ -1,5 +1,5 @@
 package com.example.plantapi.controller;
-
+/* 내 식물 : 접수처 */
 import com.example.plantapi.domain.MyPlant;
 import com.example.plantapi.dto.*;
 import com.example.plantapi.service.MyPlantService;
@@ -21,24 +21,33 @@ public class MyPlantController {
 
     private final MyPlantService myPlantService;
 
+    // 모든 메소드에 Authentication auth가 있음. 스프링이 로그인한 사람 정보를 넣어줌
+
+    /* 등록하기 */
+    // POST /api/my-plants
     @PostMapping
     public MyPlantResponse create(@Valid @RequestBody MyPlantCreateRequest request,
                                   Authentication auth) {
         return myPlantService.create(request, auth);
     }
 
-    // GET /api/my-plants?sort=due
+    /* 목록 가져오기 */
+    // GET /api/my-plants
     @GetMapping
     public List<MyPlantResponse> list(@RequestParam(required = false) String sort,
                                       Authentication auth) {
+        // sort 없어도 됨. 있으면 D-day순으로 정렬
         return myPlantService.list(sort, auth);
     }
 
+    /* 상세 가져오기 */
+    // GET /api/my-plants/3
     @GetMapping("/{id}")
     public MyPlantResponse get(@PathVariable Long id, Authentication auth) {
-        return myPlantService.get(id, auth);
+        return myPlantService.get(id, auth); // 변수에 담긴 애들을 서비스에 넘김
     }
 
+    /* 내 식물 수정하기 */
     @PutMapping("/{id}")
     public MyPlantResponse update(@PathVariable Long id,
                                   @Valid @RequestBody MyPlantUpdateRequest request,

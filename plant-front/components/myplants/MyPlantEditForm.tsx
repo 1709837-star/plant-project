@@ -1,3 +1,5 @@
+/* 수정 폼 */
+// 클라이언트 컴포넌트
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -5,6 +7,7 @@ import { useState } from "react";
 import type { MyPlant } from "@/lib/api";
 
 export default function MyPlantEditForm({ plant }: { plant: MyPlant }) {
+  // 등록 폼은 빈 칸으로 시작, 수정 폼은 기존 값을 미리 채워서 시작
   const router = useRouter();
   const [nickname, setNickname] = useState(plant.nickname);
   const [location, setLocation] = useState(plant.location ?? "");

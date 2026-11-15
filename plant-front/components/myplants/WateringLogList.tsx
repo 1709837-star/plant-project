@@ -1,6 +1,9 @@
+/* 물주기 기록 */
+
 import type { WateringLog } from "@/lib/api";
 
 export default function WateringLogList({ logs }: { logs: WateringLog[] }) {
+  // plants/[id]/page에서 waterings 넘겨줌
   return (
     <div className="mt-6">
       <h2 className="text-lg font-semibold">물주기 기록</h2>

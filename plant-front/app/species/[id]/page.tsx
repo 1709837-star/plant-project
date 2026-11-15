@@ -1,4 +1,5 @@
-// plant-front/app/species/[id]/page.tsx
+/* << 도감 상세 >> */
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSpeciesById } from "@/lib/api";

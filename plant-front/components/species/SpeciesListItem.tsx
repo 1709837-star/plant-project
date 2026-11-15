@@ -1,6 +1,9 @@
+/* << 도감 카드 한 장 >> */
+
 import Link from "next/link";
 import type { Species } from "@/lib/api";
 
+// 번역표 : 스프링이 Low라는 코드를 주면 화면에는 "낮은 광도"로 나온다.
 const LIGHT_LABEL: Record<string, string> = {
   LOW: "낮은 광도",
   MEDIUM: "중간 광도",

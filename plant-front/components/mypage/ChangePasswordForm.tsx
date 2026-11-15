@@ -1,3 +1,6 @@
+/* << 비밀번호 변경 폼 >> */
+// 클라이언트 컴포넌트 
+
 "use client";
 
 import { useState } from "react";
@@ -10,7 +13,7 @@ export default function ChangePasswordForm() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     const res = await fetch("/api/auth/password", {
-      method: "PUT",
+      method: "PUT", // 수정하는 거니까
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ currentPassword, newPassword }),
     });

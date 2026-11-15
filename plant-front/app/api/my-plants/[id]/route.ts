@@ -1,3 +1,5 @@
+/* 내 식물 수정, 삭제 중계 */
+
 import { forward } from "@/lib/forward";
 import { NextRequest } from "next/server";
 

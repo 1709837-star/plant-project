@@ -1,3 +1,5 @@
+/* 물주기 중계 */
+
 import { forward } from "@/lib/forward";
 import { NextRequest } from "next/server";
 

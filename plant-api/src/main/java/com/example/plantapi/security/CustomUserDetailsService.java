@@ -18,12 +18,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        com.example.plantapi.domain.User user = userRepository.findByEmail(email)
+        com.example.plantapi.domain.User user = userRepository.findByEmail(email) // DB에서 email로 가입자 찾음
                 .orElseThrow(() -> new UsernameNotFoundException("해당 이메일의 사용자가 없습니다"));
 
-        return new org.springframework.security.core.userdetails.User(
+        return new org.springframework.security.core.userdetails.User( // 있으면 스프링이 쓰는 User 객체로 바꿔서 돌려줌
                 user.getEmail(),
-                user.getPassword(), // DB에 저장된 BCrypt 해시
+                user.getPassword(), // DB에 저장된 BCrypt 해시를 그대로 넣음
                 List.of(new SimpleGrantedAuthority("ROLE_USER"))
         );
     }

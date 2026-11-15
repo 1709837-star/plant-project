@@ -1,3 +1,5 @@
+/* 사진 올리기 */
+
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -11,14 +13,17 @@ export default function PhotoUpload({ plantId }: { plantId: number }) {
     const file = e.target.files?.[0];
     if (!file) return;
     setLoading(true);
-    const formData = new FormData();
+
+    const formData = new FormData(); // JSON에는 파일을 못 넣기 때문에 formData
     formData.append("file", file);
+
     const res = await fetch(`/api/my-plants/${plantId}/photo`, {
       method: "POST",
       body: formData,
     });
+
     setLoading(false);
-    if (res.ok) router.refresh();
+    if (res.ok) router.refresh(); // 새 사진 보이게 페이지 다시 그리기
     else alert("사진 업로드에 실패했습니다");
   }
 

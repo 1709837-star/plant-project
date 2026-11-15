@@ -1,3 +1,5 @@
+/* << 비밀번호 변경 페이지 >> */
+
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getMe } from "@/lib/api";

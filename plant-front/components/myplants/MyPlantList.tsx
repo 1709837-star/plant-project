@@ -1,3 +1,5 @@
+/* 목록 껍데기 */
+
 import type { MyPlant } from "@/lib/api";
 import MyPlantListItem from "@/components/myplants/MyPlantListItem";
 import Link from "next/link";

@@ -1,3 +1,5 @@
+/* << 페이지 번호 >> */
+
 import Link from "next/link";
 
 type Props = {
@@ -5,9 +7,15 @@ type Props = {
   totalPages: number;
   buildHref: (page: number) => string;
 };
+// <SpeciesPagination
+//      currentPage={currentPage}
+//      totalPages={page.totalPages ?? 1}
+//      buildHref={buildHref}
+//    /> app/species/page.tsx가 계산해서 props로 넘겨줌
+
 
 export default function SpeciesPagination({ currentPage, totalPages, buildHref }: Props) {
-  if (totalPages <= 1) return null;
+  if (totalPages <= 1) return null; // 검색 결과 페이지가 하나뿐이면 페이지네이션 안 그림
 
   return (
     <div className="mt-6 flex flex-wrap items-center justify-center gap-1">
@@ -35,3 +43,6 @@ export default function SpeciesPagination({ currentPage, totalPages, buildHref }
     </div>
   );
 }
+
+// Array.from의 i는 인덱스 번호(0, 1, 2, ...)
+// {i === currentPage ? ...} : 인덱스가 지금 보고 있는 페이지 번호면 이 css를 지정해라.

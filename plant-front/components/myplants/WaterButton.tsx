@@ -1,3 +1,5 @@
+/* 물주기 버튼 */
+
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -15,10 +17,12 @@ export default function WaterButton({ plantId }: { plantId: number }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({}),
       });
+
       if (!res.ok) {
         alert("물주기에 실패했습니다");
         return;
       }
+      
       router.refresh(); // 목록 다시 불러서 D-day 갱신
     } finally {
       setLoading(false);
