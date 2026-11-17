@@ -11,7 +11,7 @@ export default function DDayBadge({ dDay }: { dDay: number | null }) {
         : "bg-green-100 text-green-700";      // 나머지는 초록
 
   return (
-    <span className={`rounded px-2 py-1 text-sm font-semibold ${color}`}>
+      <span className={`inline-flex h-8 items-center rounded-full px-4 text-sm font-semibold ${color}`}>
       D{d > 0 ? `-${d}` : `+${-d}`}
     </span>
   );

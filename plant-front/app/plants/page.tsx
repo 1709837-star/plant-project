@@ -15,8 +15,8 @@ export default async function MyPlantsPage() {
     
   return (
     <main className="mx-auto max-w-2xl p-4">
-      <h1 className="text-2xl font-bold">나의 정원</h1>
-      <p className="mt-1 text-sm text-gray-500">D-day 임박순</p>
+      <h1 className="text-2xl text-center font-bold">나의 정원</h1>
+      <p className="mt-1 text-sm text-center text-gray-500">D-day 임박순</p>
       <div className="mt-4">
         <MyPlantList plants={plants} /> {/* 스프링에서 받아온 목록을 자식한테 넘겨줌 */}
       </div>

@@ -50,7 +50,7 @@ export default function LoginPage() {
           onChange={(e) => setEmail(e.target.value)} // 입력할 때마다 email상태가 바뀌는 제어 컴포넌트
           placeholder="이메일"
           required // 비어있으면 브라우저가 알아서 막아줌
-          className="w-full rounded border px-3 py-2"
+          className="w-full rounded-full border border-gray-200 bg-white px-4 py-2.5 shadow-sm outline-none"
         />
         <input
           type="password"
@@ -58,18 +58,18 @@ export default function LoginPage() {
           onChange={(e) => setPassword(e.target.value)} // 입력할 때마다 비밀번호 상태가 바뀌는 제어 컴포넌트
           placeholder="비밀번호"
           required
-          className="w-full rounded border px-3 py-2"
+          className="w-full rounded-full border border-gray-200 bg-white px-4 py-2.5 shadow-sm outline-none"
         />
         {error && <p className="text-sm text-red-600">{error}</p>}
         <button
           disabled={loading}
-          className="w-full rounded bg-green-600 px-4 py-2 text-white disabled:opacity-50"
+          className="w-full rounded-full bg-green-500 px-4 py-2.5 font-semibold text-white shadow-sm hover:bg-green-600 disabled:opacity-50"
         >
           {loading ? "로그인 중..." : "로그인"}
         </button>
         <p className="mt-4 text-center text-sm text-gray-500">
             계정이 없나요?{" "}
-          <Link href="/signup" className="text-green-600 hover:underline">
+          <Link href="/signup" className="text-green-500 hover:underline">
             회원가입
           </Link>
         </p>

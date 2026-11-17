@@ -27,7 +27,7 @@ export default function DeletePlantButton({ plantId }: { plantId: number }) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="rounded bg-red-600 px-4 py-2 text-white"
+        className="inline-flex h-8 items-center rounded-full bg-red-500 px-4 text-sm font-semibold text-white shadow-sm hover:bg-red-600"
       >
         삭제
       </button>

@@ -28,7 +28,7 @@ export default function PhotoUpload({ plantId }: { plantId: number }) {
   }
 
   return (
-    <label className="inline-block cursor-pointer rounded border px-3 py-1.5 text-sm hover:bg-gray-50">
+    <label className="inline-flex h-8 cursor-pointer items-center rounded-full bg-green-500 px-4 text-sm font-semibold text-white shadow-sm hover:bg-green-600">
       {loading ? "올리는 중..." : "📷 사진 올리기"}
       <input type="file" accept="image/*" onChange={onChange} className="hidden" />
     </label>

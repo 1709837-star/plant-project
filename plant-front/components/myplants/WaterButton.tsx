@@ -33,7 +33,7 @@ export default function WaterButton({ plantId }: { plantId: number }) {
     <button
       onClick={onWater}
       disabled={loading}
-      className="rounded bg-blue-600 px-3 py-1 text-sm text-white disabled:opacity-50"
+      className="inline-flex h-8 items-center rounded-full bg-blue-500 px-4 text-sm font-semibold text-white shadow-sm hover:bg-green-600 disabled:opacity-50"
     >
       {loading ? "주는 중..." : "물주기"}
     </button>

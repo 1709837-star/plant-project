@@ -20,7 +20,7 @@ export default function SpeciesPagination({ currentPage, totalPages, buildHref }
   return (
     <div className="mt-6 flex flex-wrap items-center justify-center gap-1">
       {currentPage > 0 && (
-        <Link href={buildHref(currentPage - 1)} className="rounded border px-2 py-1 text-sm">
+        <Link href={buildHref(currentPage - 1)} className="rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm shadow-sm hover:bg-green-50" >
           ←
         </Link>
       )}
@@ -28,15 +28,17 @@ export default function SpeciesPagination({ currentPage, totalPages, buildHref }
         <Link
           key={i}
           href={buildHref(i)}
-          className={`rounded border px-2 py-1 text-sm ${
-            i === currentPage ? "bg-green-600 text-white" : ""
+          className={`rounded-full border px-3 py-1.5 text-sm shadow-sm ${
+            i === currentPage
+              ? "border-green-600 bg-green-600 text-white"
+              : "border-gray-200 bg-white hover:bg-green-50"
           }`}
         >
           {i + 1}
         </Link>
       ))}
       {currentPage + 1 < totalPages && (
-        <Link href={buildHref(currentPage + 1)} className="rounded border px-2 py-1 text-sm">
+        <Link href={buildHref(currentPage + 1)} className="rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm shadow-sm hover:bg-green-50" >
           →
         </Link>
       )}

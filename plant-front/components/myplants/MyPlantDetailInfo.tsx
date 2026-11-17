@@ -4,7 +4,7 @@ import DDayBadge from "@/components/myplants/DDayBadge";
 export default function MyPlantDetailInfo({ plant }: { plant: MyPlant }) {
   // 내 식물 상세(app/plants/[id]/page.tsx)에서 plant를 통째로 넘겨줌
   return (
-    <div className="mt-4 rounded border p-4 text-base">
+    <div className="mt-4 rounded-3xl border border-gray-100 bg-white p-4 text-base shadow-sm">
       <div className="flex items-center justify-between py-1">
         <span className="text-gray-500">놓은 장소</span>
         <span className="font-medium">{plant.location}</span>

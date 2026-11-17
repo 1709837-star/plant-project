@@ -1,7 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+.logo-font {
+  font-family: 'Jua', sans-serif;
+}
+
+
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #eef6e9;
   --foreground: #171717;
 }
 

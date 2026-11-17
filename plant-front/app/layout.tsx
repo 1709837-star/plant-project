@@ -30,10 +30,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <Header /> {/* 모든 페이지에 헤더가 자동으로 붙는 이유 */}
+    <body className="min-h-screen bg-[#eef6e9]">
+      <Header />
+      <div className="mx-auto w-full max-w-2xl px-3 py-4">
+        <div className="rounded-[2rem] bg-[#f6faf3] shadow-sm">
           {children}
-      </body>
+        </div>
+      </div>
+    </body>
     </html>
   );
 }

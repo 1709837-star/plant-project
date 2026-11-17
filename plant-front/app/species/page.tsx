@@ -45,7 +45,7 @@ export default async function SpeciesPage({ searchParams }: Props) {
       <h1 className="text-2xl font-bold">식물 도감</h1>
         <Link
           href="/plants/new"
-          className="rounded-full bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700"
+          className="rounded-full bg-green-500 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-600"
         >
       + 내 식물 등록
       </Link>

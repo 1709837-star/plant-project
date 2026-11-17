@@ -12,7 +12,7 @@ const LIGHT_LABEL: Record<string, string> = {
 
 export default function SpeciesListItem({ species }: { species: Species }) {
   return (
-    <li className="rounded border">
+    <li className="rounded-3xl border border-gray-100 bg-white shadow-sm transition hover:shadow-md">
       <Link href={`/species/${species.id}`} className="flex items-center justify-between gap-3 p-4">
         <div className="min-w-0 flex-1">
           <p className="break-keep text-lg font-semibold">{species.name}</p>
@@ -22,7 +22,7 @@ export default function SpeciesListItem({ species }: { species: Species }) {
           </p>
         </div>
         {species.imageUrl ? (
-          <img src={species.imageUrl} alt={species.name} className="h-20 w-20 shrink-0 rounded object-cover" />
+          <img src={species.imageUrl} alt={species.name} className="h-20 w-20 rounded-2xl object-cover" />
         ) : (
           <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded bg-green-50 text-3xl">🌱</div>
         )}

@@ -13,21 +13,28 @@ export default async function Header() {
   const me = await getMe(cookie);
 
   return (
-    <header className="bg-green-700 text-white">
-      <div className="mx-auto max-w-2xl px-4 py-3">
-        <Link href="/species" className="block text-center text-xl font-bold">
-          🌿 작은 정원
+    <header className="bg-[#eef6e9] text-gray-900">
+      <div className="mx-auto flex max-w-2xl items-center justify-between px-4 py-3">
+        {/* 왼쪽: 로고 */}
+        <Link href="/species" className="flex shrink-0 items-center gap-2 whitespace-nowrap">
+          <img src="/logo1.png" alt="작은 정원 로고" className="h-12 w-30 shrink-0 object-contain" />
         </Link>
-        <nav className="mt-2 flex items-center justify-between px-2 text-sm">
-          <Link href="/species">식물 도감</Link>
-          <Link href="/plants">나의 정원</Link>
+
+        {/* 오른쪽: 아이콘 메뉴 */}
+        <nav className="flex items-center gap-4 text-xl">
+          <Link href="/species" title="식물 도감">🪴</Link>
+          <Link href="/plants" title="나의 정원">🏡</Link>
           {me ? (
             <>
-              <Link href="/mypage">마이페이지</Link>
+              <Link href="/mypage" title="마이페이지">🚪</Link>
               <LogoutButton />
             </>
           ) : (
-            <Link href="/login" className="rounded-full bg-white px-3 py-1 font-semibold text-green-700">
+            <Link
+              href="/login"
+              title="로그인"
+              className="rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-gray-900 shadow-sm"
+            >
               로그인
             </Link>
           )}

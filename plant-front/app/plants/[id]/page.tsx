@@ -30,28 +30,38 @@ export default async function MyPlantDetailPage({ params }: Params) {
 
   return (
     <main className="mx-auto max-w-2xl p-6">
-      <Link href="/plants" className="text-sm text-gray-500">
+      {/* 나의 정원으로 — 하얀 버튼으로 */}
+      <Link href="/plants" className="inline-block rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm font-semibold text-gray-700 shadow-sm">
         ← 나의 정원으로
       </Link>
 
-      <h1 className="mt-4 text-3xl font-bold">{plant.nickname}</h1>
-      {plant.speciesName && (
-        <p className="mt-1 text-gray-500">{plant.speciesName}</p>
-      )}
+      {/* 이름 + 종류 — 가운데정렬 */}
+      <div className="mt-4 text-center">
+        <h1 className="text-3xl font-bold">{plant.nickname}</h1>
+        {plant.speciesName && (
+          <p className="mt-1 text-gray-500">{plant.speciesName}</p>
+        )}
+      </div>
 
       {plant.photoUrl ? (
-        <img src={`http://127.0.0.1:8080${plant.photoUrl}`} alt={plant.nickname} className="h-48 w-full rounded object-cover" />
+        <img src={`http://127.0.0.1:8080${plant.photoUrl}`} alt={plant.nickname} className="mt-4 h-48 w-full rounded-2xl object-cover" />
       ) : (
-        <div className="flex h-48 w-full items-center justify-center rounded bg-green-50 text-7xl">🌱</div>
+        <div className="mt-4 flex h-48 w-full items-center justify-center rounded-2xl bg-green-50 text-7xl">🌱</div>
       )}
-      <PhotoUpload plantId={plant.id} />
+
+      {/* 사진 올리기 — 오른쪽으로 */}
+      <div className="mt-3 flex justify-end">
+        <PhotoUpload plantId={plant.id} />
+      </div>
+
       <MyPlantDetailInfo plant={plant} />
 
-      <div className="mt-6 flex gap-3">
+      {/* 물주기 / 수정하기 / 삭제하기 — 가운데정렬, 크기 통일 */}
+      <div className="mt-6 flex items-center justify-center gap-3">
         <WaterButton plantId={plant.id} />
         <Link
           href={`/plants/${plant.id}/edit`}
-          className="rounded bg-gray-200 px-4 py-2 text-sm font-semibold"
+          className="inline-flex h-8 items-center rounded-full bg-gray-200 px-4 text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-300"
         >
           수정하기
         </Link>
@@ -59,7 +69,7 @@ export default async function MyPlantDetailPage({ params }: Params) {
       </div>
 
       <WateringLogList logs={waterings} />
-
     </main>
+
   );
 }
