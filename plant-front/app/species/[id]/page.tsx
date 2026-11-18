@@ -51,7 +51,7 @@ const legend = Array.from(legendMap, ([img, note]) => ({ img, note }));
         </Link>
       </div>
       <div className="mt-4 rounded-3xl border border-gray-100 bg-white p-4 shadow-sm">
-        <h1 className="mt-4 text-2xl font-bold">{species.name}</h1>
+        <h1 className="mt-4 text-xl font-bold">{species.name}</h1>
         {species.imageUrl && (
           <img
             src={species.imageUrl}
@@ -64,20 +64,20 @@ const legend = Array.from(legendMap, ([img, note]) => ({ img, note }));
         <h2 className="text-lg font-bold">🔎 상세정보</h2>
         <dl className="mt-2 space-y-3 rounded-3xl border border-gray-100 bg-white p-4 shadow-sm">
           <div className="flex justify-between">
-            <dt className="text-gray-500">분류</dt>
-            <dd className="font-semibold">{species.category ?? "-"}</dd>
+            <dt className="text-sm text-gray-500">분류</dt>
+            <dd className="text-sm font-semibold">{species.category ?? "-"}</dd>
           </div>
           <div className="flex justify-between">
-            <dt className="text-gray-500">생육형태</dt>
-            <dd className="font-semibold">{species.growthForm ?? "-"}</dd>
+            <dt className="text-sm text-gray-500">생육형태</dt>
+            <dd className="text-sm font-semibold">{species.growthForm ?? "-"}</dd>
           </div>
           <div className="flex justify-between">
-            <dt className="text-gray-500">생장높이(cm)</dt>
-            <dd className="font-semibold">{species.growthHeight ?? "-"}</dd>
+            <dt className="text-sm text-gray-500">생장높이(cm)</dt>
+            <dd className="text-sm font-semibold">{species.growthHeight ?? "-"}</dd>
           </div>
           <div className="flex justify-between">
-            <dt className="text-gray-500">생장너비(cm)</dt>
-            <dd className="font-semibold">{species.growthWidth ?? "-"}</dd>
+            <dt className="text-sm text-gray-500">생장너비(cm)</dt>
+            <dd className="text-sm font-semibold">{species.growthWidth ?? "-"}</dd>
           </div>
         </dl>
       </section>
@@ -86,18 +86,18 @@ const legend = Array.from(legendMap, ([img, note]) => ({ img, note }));
         <h2 className="text-lg font-bold">☘️ 관리정보</h2>
         <dl className="mt-2 space-y-3 rounded-3xl border border-gray-100 bg-white p-4 shadow-sm">
           <div className="flex justify-between">
-            <dt className="text-gray-500">관리수준</dt>
-            <dd className="font-semibold">{species.difficulty ?? "-"}</dd>
+            <dt className="text-sm text-gray-500">관리수준</dt>
+            <dd className="text-sm font-semibold">{species.difficulty ?? "-"}</dd>
           </div>
           <div className="flex justify-between">
-            <dt className="text-gray-500">광요구도</dt>
-            <dd className="font-semibold">
+            <dt className="text-sm text-gray-500">광요구도</dt>
+            <dd className="text-sm font-semibold">
               {species.lightLevel ? LIGHT_LABEL[species.lightLevel] ?? species.lightLevel : "-"}
             </dd>
           </div>
           <div className="flex items-start justify-between gap-4">
-            <span className="shrink-0 text-gray-500">배치장소</span>
-            <span className="text-right font-semibold">
+            <span className="text-sm shrink-0 text-gray-500">배치장소</span>
+            <span className="text-sm text-right font-semibold">
               {species.placement?.split("(")[0]}
               {species.placement?.includes("(") && (
                 <span className="mt-1 block text-sm font-normal text-gray-500">
@@ -107,16 +107,16 @@ const legend = Array.from(legendMap, ([img, note]) => ({ img, note }));
             </span>
           </div>
           <div className="flex justify-between">
-            <dt className="text-gray-500">생육적온</dt>
-            <dd className="font-semibold">{species.optimalTemp ?? "-"}</dd>
+            <dt className="text-sm text-gray-500">생육적온</dt>
+            <dd className="text-sm font-semibold">{species.optimalTemp ?? "-"}</dd>
           </div>
           <div className="flex justify-between">
-            <dt className="text-gray-500">습도</dt>
-            <dd className="font-semibold">{species.humidity ?? "-"}</dd>
+            <dt className="text-sm text-gray-500">습도</dt>
+            <dd className="text-sm font-semibold">{species.humidity ?? "-"}</dd>
           </div>
           <div className="flex justify-between">
-            <dt className="text-gray-500">겨울온도</dt>
-            <dd className="font-semibold">
+            <dt className="text-sm text-gray-500">겨울온도</dt>
+            <dd className="text-sm font-semibold">
               {species.minWinterTemp !== null && species.minWinterTemp !== undefined
                 ? `${species.minWinterTemp}°C 이상`
                 : "-"}

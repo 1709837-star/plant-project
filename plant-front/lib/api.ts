@@ -96,8 +96,8 @@ export async function getSpeciesById(id: number): Promise<Species | null> {
 }
 
 // 내 식물 목록
-export async function getMyPlants(cookie?: string): Promise<MyPlant[] | null> {
-  const res = await fetch(`${API_BASE}/api/my-plants?sort=due`, {
+export async function getMyPlants(cookie?: string, sort?: string) {
+  const res = await fetch(`${API_BASE}/api/my-plants?sort=${sort ?? "due"}`, { // sort안 오면 due
     headers: cookie ? { Cookie: cookie } : {}, // "누구야? (로그인이 필요한 애들한테만)"
     cache: "no-store",  // "매번 새로 가져와 (캐시 안 씀)"
   });

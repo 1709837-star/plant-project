@@ -22,11 +22,11 @@ export default async function Header() {
 
         {/* 오른쪽: 아이콘 메뉴 */}
         <nav className="flex items-center gap-4 text-xl">
-          <Link href="/species" title="식물 도감">🪴</Link>
-          <Link href="/plants" title="나의 정원">🏡</Link>
+          <Link href="/species" title="식물 도감">🌱</Link>
+          <Link href="/plants" title="나의 정원">🌳</Link>
           {me ? (
             <>
-              <Link href="/mypage" title="마이페이지">🚪</Link>
+              <Link href="/mypage" title="마이페이지">🏡</Link>
               <LogoutButton />
             </>
           ) : (

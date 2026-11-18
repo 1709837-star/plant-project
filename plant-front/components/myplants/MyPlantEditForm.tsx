@@ -14,6 +14,7 @@ export default function MyPlantEditForm({ plant }: { plant: MyPlant }) {
   const [wateringIntervalDays, setWateringIntervalDays] = useState(
     plant.wateringIntervalDays?.toString() ?? ""
   );
+  const [adoptedDate, setAdoptedDate] = useState(plant.adoptedDate ?? "");
   const [lastWateredDate, setLastWateredDate] = useState(plant.lastWateredDate);
   const [memo, setMemo] = useState(plant.memo ?? "");
   const [error, setError] = useState("");
@@ -33,6 +34,7 @@ export default function MyPlantEditForm({ plant }: { plant: MyPlant }) {
           wateringIntervalDays: wateringIntervalDays
             ? Number(wateringIntervalDays)
             : null,
+          adoptedDate: adoptedDate || null,
           lastWateredDate,
           memo: memo || null,
         }),
@@ -51,60 +53,68 @@ export default function MyPlantEditForm({ plant }: { plant: MyPlant }) {
   }
 
   return (
-    <form onSubmit={onSubmit} className="mt-6 space-y-3">
-      <label className="block">
-        <span className="text-sm text-gray-600">별명 *</span>
-        <input
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-          required
-          className="mt-1 w-full rounded border px-3 py-2"
-        />
-      </label>
-      <label className="block">
-        <span className="text-sm text-gray-600">놓은 장소</span>
-        <input
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          className="mt-1 w-full rounded border px-3 py-2"
-        />
-      </label>
-      <label className="block">
-        <span className="text-sm text-gray-600">물주기 간격 (일)</span>
-        <input
-          type="number"
-          min={1}
-          value={wateringIntervalDays}
-          onChange={(e) => setWateringIntervalDays(e.target.value)}
-          className="mt-1 w-full rounded border px-3 py-2"
-        />
-      </label>
-      <label className="block">
-        <span className="text-sm text-gray-600">마지막 물 준 날짜 *</span>
-        <input
-          type="date"
-          value={lastWateredDate}
-          onChange={(e) => setLastWateredDate(e.target.value)}
-          required
-          className="mt-1 w-full rounded border px-3 py-2"
-        />
-      </label>
-      <label className="block">
-        <span className="text-sm text-gray-600">메모</span>
-        <textarea
-          value={memo}
-          onChange={(e) => setMemo(e.target.value)}
-          rows={5}
-          className="mt-1 w-full rounded border px-3 py-2"
-        />
-      </label>
-      {error && <p className="text-sm text-red-600">{error}</p>}
-      <button
-        disabled={loading}
-        className="w-full rounded bg-green-600 px-4 py-2 font-semibold text-white disabled:opacity-50"
-      >
-        {loading ? "저장 중..." : "저장하기"}
-      </button>
+    <form onSubmit={onSubmit} className="flex flex-col gap-3">
+      <label className="text-sm font-medium text-gray-700">별명</label>
+      <input
+        type="text"
+        value={nickname}
+        onChange={(e) => setNickname(e.target.value)}
+        className="w-full rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm shadow-sm outline-none focus:ring-2 focus:ring-green-100"
+      />
+
+      <label className="text-sm font-medium text-gray-700">놓은 장소</label>
+      <input
+        type="text"
+        value={location}
+        onChange={(e) => setLocation(e.target.value)}
+        className="w-full rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm shadow-sm outline-none focus:ring-2 focus:ring-green-100"
+      />
+
+      <label className="text-sm font-medium text-gray-700">물주기 간격 (일)</label>
+      <input
+        type="number"
+        value={wateringIntervalDays}
+        onChange={(e) => setWateringIntervalDays(e.target.value)}
+        className="w-full rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm shadow-sm outline-none focus:ring-2 focus:ring-green-100"
+      />
+
+      <label className="text-sm font-medium text-gray-700">마지막 물 준 날짜</label>
+      <input
+        type="date"
+        value={lastWateredDate}
+        onChange={(e) => setLastWateredDate(e.target.value)}
+        className="w-full rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm shadow-sm outline-none focus:ring-2 focus:ring-green-100"
+      />
+
+      <label className="text-sm font-medium text-gray-700">입양일</label>
+      <input
+        type="date"
+        value={adoptedDate}
+        onChange={(e) => setAdoptedDate(e.target.value)}
+        className="w-full rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm shadow-sm outline-none focus:ring-2 focus:ring-green-100"
+      />
+
+      <label className="text-sm font-medium text-gray-700">메모</label>
+      <textarea
+        value={memo}
+        onChange={(e) => setMemo(e.target.value)}
+        rows={5}
+        className="w-full rounded-3xl border border-gray-200 bg-white px-4 py-3 text-sm shadow-sm outline-none focus:ring-2 focus:ring-green-100"
+      />
+
+      <div className="mt-2 flex gap-2">
+        <button className="flex-1 rounded-full bg-green-500 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-600">
+          수정하기
+        </button>
+        <button
+          type="button"
+          onClick={() => router.back()}
+          className="flex-1 rounded-full border border-gray-200 bg-white py-2.5 text-sm font-semibold text-gray-700 shadow-sm"
+        >
+          취소
+        </button>
+      </div>
     </form>
+
   );
 }

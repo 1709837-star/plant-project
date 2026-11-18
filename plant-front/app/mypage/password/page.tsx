@@ -12,9 +12,9 @@ export default async function PasswordPage() {
   if (!me) redirect("/login");
 
   return (
-    <main className="mx-auto max-w-md p-4">
+    <main className="mx-auto max-w-2xl p-4">
       <BackButton label="← 마이페이지로" />
-      <h1 className="mt-4 text-xl font-bold">비밀번호 변경</h1>
+      <h1 className="text-center text-2xl font-bold">비밀번호 변경</h1>
       <ChangePasswordForm />
     </main>
   );

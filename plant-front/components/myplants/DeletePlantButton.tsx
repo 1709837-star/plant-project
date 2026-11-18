@@ -29,7 +29,7 @@ export default function DeletePlantButton({ plantId }: { plantId: number }) {
         onClick={() => setOpen(true)}
         className="inline-flex h-8 items-center rounded-full bg-red-500 px-4 text-sm font-semibold text-white shadow-sm hover:bg-red-600"
       >
-        삭제
+        삭제하기
       </button>
       {/* 버튼을 눌러서 open이 true가 되면 모달이 열림
           fixed inset-0 : 화면 전체를 덮음

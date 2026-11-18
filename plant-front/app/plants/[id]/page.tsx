@@ -68,7 +68,7 @@ export default async function MyPlantDetailPage({ params }: Params) {
         <DeletePlantButton plantId={plant.id} />
       </div>
 
-      <WateringLogList logs={waterings} />
+      <WateringLogList logs={waterings} dDay={plant.dDay} />
     </main>
 
   );

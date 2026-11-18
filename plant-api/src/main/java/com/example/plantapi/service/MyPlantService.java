@@ -86,6 +86,16 @@ public class MyPlantService {
                             MyPlantResponse::dDay,
                             Comparator.nullsLast(Comparator.naturalOrder())))
                     .toList();
+        } else if ("latest".equals(sort)) {
+            // 최신 등록순: id가 클수록 최근에 등록한 거야
+            result = result.stream()
+                    .sorted(Comparator.comparing(MyPlantResponse::id).reversed())
+                    .toList();
+        } else if ("oldest".equals(sort)) {
+            // 과거 등록순: id가 작을수록 먼저 등록한 거야
+            result = result.stream()
+                    .sorted(Comparator.comparing(MyPlantResponse::id))
+                    .toList();
         }
         return result;
     }

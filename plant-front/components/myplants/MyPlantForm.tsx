@@ -30,6 +30,7 @@ export default function MyPlantForm({ speciesList, initialSpeciesId }: Props) {
   const [lastWateredDate, setLastWateredDate] = useState(
     new Date().toISOString().slice(0, 10) // 초기값은 오늘. 오늘 날짜를 2026-11-11 형태로 만듦
   );
+  const [adoptedDate, setAdoptedDate] = useState("");
   const [memo, setMemo] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -40,6 +41,8 @@ export default function MyPlantForm({ speciesList, initialSpeciesId }: Props) {
     setLoading(true);
 
     try {
+      const today = new Date().toLocaleDateString("en-CA"); // 오늘 날짜를 YYYY-MM-DD로
+
       const res = await fetch("/api/my-plants", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -51,6 +54,7 @@ export default function MyPlantForm({ speciesList, initialSpeciesId }: Props) {
             ? Number(wateringIntervalDays) // 문자열로 들어오니까 숫자로 바꾸고, 비어있으면 null
             : null,
           lastWateredDate,
+          adoptedDate: adoptedDate || today,
           memo: memo || null,
         }),
       });
@@ -68,13 +72,13 @@ export default function MyPlantForm({ speciesList, initialSpeciesId }: Props) {
   }
 
   return (
-    <form onSubmit={onSubmit} className="mt-6 space-y-3">
+    <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-3">
       <div>
-        <label className="mb-1 block text-sm font-medium">도감 식물</label>
+        <label className="mb-1 block text-sm font-medium text-gray-700">도감 식물</label>
         <input
           type="text"
           value={keyword}
-          disabled={noSpecies} // 도감에 없는 식물 누르면 회색으로 잠김
+          disabled={noSpecies} 
           onFocus={() => {
             if (!noSpecies) setOpen(true);  // 입력창을 클릭하면 목록이 열림
           }}
@@ -85,12 +89,12 @@ export default function MyPlantForm({ speciesList, initialSpeciesId }: Props) {
           }}
           onBlur={() => setTimeout(() => setOpen(false), 150)} // 입력창에서 포커스 나가면 목록 닫기
           placeholder="식물 이름을 검색하세요 (예: 몬스테라)"
-          className={`w-full rounded border px-3 py-2 ${
+          className={`w-full rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm shadow-sm outline-none focus:ring-2 focus:ring-green-100 ${
             noSpecies ? "bg-gray-100 text-gray-400" : ""
           }`}
         />
         {open && !noSpecies && ( // open이 true이고, noSpecies가 아닐 때
-          <div className="mt-2 max-h-60 overflow-y-auto rounded border p-2">
+          <div className="mt-2 max-h-60 overflow-y-auto rounded-3xl border border-gray-100 bg-white p-2 shadow-sm">
             {filtered.map((s) => (
               <button
                 key={s.id}
@@ -100,7 +104,7 @@ export default function MyPlantForm({ speciesList, initialSpeciesId }: Props) {
                   setKeyword(s.name); // keyword에 그 식물의 이름을 넣음
                   setOpen(false);     // 목록 닫기
                 }}
-                className="w-full rounded px-2 py-1.5 text-left hover:bg-green-50"
+                className="w-full rounded-full px-2 py-1.5 text-left hover:bg-green-50"
               >
                 {s.name}
               </button>
@@ -128,8 +132,8 @@ export default function MyPlantForm({ speciesList, initialSpeciesId }: Props) {
               setOpen(false);
             }
           }}
-          className={`mt-2 w-full rounded border px-3 py-2 text-left text-sm ${
-            noSpecies ? "border-green-600 bg-green-100 font-semibold" : "hover:bg-green-50"
+          className={`mt-2 w-full rounded-full border px-4 py-2 text-left text-sm shadow-sm ${
+            noSpecies ? "border-green-500 bg-green-50 font-semibold" : "border-gray-200 bg-white hover:bg-green-50"
           }`}
         >
           {noSpecies ? "● 도감에 없는 식물" : "○ 도감에 없는 식물"}
@@ -137,55 +141,72 @@ export default function MyPlantForm({ speciesList, initialSpeciesId }: Props) {
       </div>
 
       <label className="block">
-        <span className="text-sm text-gray-600">별명 *</span>
+        <span className="text-sm font-medium text-gray-700">별명 *</span>
         <input
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
           placeholder="예: 몬스 1호"
           required
-          className="mt-1 w-full rounded border px-3 py-2"
+          className="mt-1 w-full rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm shadow-sm outline-none focus:ring-2 focus:ring-green-100"
         />
       </label>
 
       <label className="block">
-        <span className="text-sm text-gray-600">놓은 장소</span>
+        <span className="text-sm font-medium text-gray-700">놓은 장소</span>
         <input
           value={location}
           onChange={(e) => setLocation(e.target.value)}
           placeholder="예: 거실 창측"
-          className="mt-1 w-full rounded border px-3 py-2"
+          className="mt-1 w-full rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm shadow-sm outline-none focus:ring-2 focus:ring-green-100"
         />
       </label>
 
       <label className="block">
-        <span className="text-sm text-gray-600">물주기 간격 (일)</span>
+        <span className="text-sm font-medium text-gray-700">물주기 간격 (일)</span>
         <input
           type="number"
           min={1}
           value={wateringIntervalDays}
           onChange={(e) => setWateringIntervalDays(e.target.value)}
           placeholder="예: 7"
-          className="mt-1 w-full rounded border px-3 py-2"
+          className="mt-1 w-full rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm shadow-sm outline-none focus:ring-2 focus:ring-green-100"
         />
+        <span className="mt-1 block pl-4 text-xs text-gray-400">
+            흙이 마르면 주고, 간격은 계절마다 다릅니다.
+        </span>
+        <span className="mt-0.5 block pl-4 text-xs text-gray-400">
+            * 참고 : 대부분 7~10일, 산세베리아·다육은 14~21일, 겨울은 더 길게
+        </span>
       </label>
 
       <label className="block">
-        <span className="text-sm text-gray-600">마지막 물 준 날짜 *</span>
+        <span className="text-sm font-medium text-gray-700">마지막 물 준 날짜 *</span>
         <input
           type="date"
           value={lastWateredDate}
           onChange={(e) => setLastWateredDate(e.target.value)}
           required
-          className="mt-1 w-full rounded border px-3 py-2"
+          className="mt-1 w-full rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm shadow-sm outline-none focus:ring-2 focus:ring-green-100"
         />
       </label>
 
       <label className="block">
-        <span className="text-sm text-gray-600">메모</span>
+        <span className="text-sm font-medium text-gray-700">입양일</span>
+        <input
+          type="date"
+          value={adoptedDate}
+          onChange={(e) => setAdoptedDate(e.target.value)}
+          className="mt-1 w-full rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm shadow-sm outline-none focus:ring-2 focus:ring-green-100"
+        />
+        <span className="mt-1 block text-xs text-gray-400">비워두면 오늘 날짜로 저장돼요</span>
+      </label>
+
+      <label className="block">
+        <span className="text-sm font-medium text-gray-700">메모</span>
         <input
           value={memo}
           onChange={(e) => setMemo(e.target.value)}
-          className="mt-1 w-full rounded border px-3 py-2"
+          className="mt-1 w-full rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm shadow-sm outline-none focus:ring-2 focus:ring-green-100"
         />
       </label>
 
@@ -193,10 +214,11 @@ export default function MyPlantForm({ speciesList, initialSpeciesId }: Props) {
 
       <button
         disabled={loading}
-        className="w-full rounded bg-green-600 px-4 py-2 font-semibold text-white disabled:opacity-50"
+        className="w-full rounded-full bg-green-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-600 disabled:opacity-50"
       >
         {loading ? "등록 중..." : "등록하기"}
       </button>
     </form>
+ 
   );
 }

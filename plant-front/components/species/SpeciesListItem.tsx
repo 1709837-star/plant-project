@@ -15,7 +15,7 @@ export default function SpeciesListItem({ species }: { species: Species }) {
     <li className="rounded-3xl border border-gray-100 bg-white shadow-sm transition hover:shadow-md">
       <Link href={`/species/${species.id}`} className="flex items-center justify-between gap-3 p-4">
         <div className="min-w-0 flex-1">
-          <p className="break-keep text-lg font-semibold">{species.name}</p>
+          <p className="break-keep text-base font-semibold">{species.name}</p>
           <p className="mt-1 break-keep text-sm text-gray-600">
             {species.difficulty ?? "난이도 없음"} · {LIGHT_LABEL[species.lightLevel ?? ""] ?? species.lightLevel} ·{" "}
             <span className="whitespace-nowrap">겨울 최저 {species.minWinterTemp}°C</span>

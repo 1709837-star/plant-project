@@ -1,12 +1,17 @@
 /* 물주기 기록 */
 
 import type { WateringLog } from "@/lib/api";
+import DDayBadge from "@/components/myplants/DDayBadge";
 
-export default function WateringLogList({ logs }: { logs: WateringLog[] }) {
+
+export default function WateringLogList({ logs, dDay }: { logs: WateringLog[]; dDay?: number | null }) {
   // plants/[id]/page에서 waterings 넘겨줌
   return (
-    <div className="mt-6">
-      <h2 className="text-center text-lg font-semibold">물주기 기록</h2>
+    <div className="mt-10">
+      <div className="flex items-center justify-center gap-2">
+        <h2 className="text-lg font-semibold">물주기 기록</h2>
+        {dDay !== undefined && dDay !== null && <DDayBadge dDay={dDay} />}
+      </div>
       {logs.length === 0 ? (
         <p className="mt-2 text-center text-sm text-gray-500">아직 물주기 기록이 없습니다</p>
       ) : (

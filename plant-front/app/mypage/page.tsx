@@ -19,10 +19,10 @@ export default async function MyPage() {
         <p><span className="text-sm text-gray-500">이메일</span><br /><span className="break-all text-sm">{me.email}</span></p>
       </div>
       <div className="mx-auto mt-6 flex w-64 flex-col gap-3">
-        <Link href="/plants" className="rounded-full bg-green-500 px-4 py-2.5 text-center font-semibold text-white shadow-sm hover:bg-green-600">
+        <Link href="/plants" className="rounded-full bg-green-500 px-4 py-2.5 text-center font-medium text-white shadow-sm hover:bg-green-600">
           👀 내 식물 보러가기
         </Link>
-        <Link href="/mypage/password" className="rounded-full bg-green-500 px-4 py-2.5 text-center font-semibold text-white shadow-sm hover:bg-green-600">
+        <Link href="/mypage/password" className="rounded-full bg-green-500 px-4 py-2.5 text-center font-medium text-white shadow-sm hover:bg-green-600">
           🔒 비밀번호 변경
         </Link>
       </div>
