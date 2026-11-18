@@ -2,6 +2,7 @@
 
 import type { WateringLog } from "@/lib/api";
 import DDayBadge from "@/components/myplants/DDayBadge";
+import DeleteWateringButton from "./DeleteWateringButton";
 
 
 export default function WateringLogList({ logs, dDay }: { logs: WateringLog[]; dDay?: number | null }) {
@@ -17,9 +18,12 @@ export default function WateringLogList({ logs, dDay }: { logs: WateringLog[]; d
       ) : (
         <ul className="mt-3 space-y-2">
           {logs.map((log) => (
-            <li key={log.id} className="flex items-center justify-between rounded-2xl border border-gray-100 bg-white px-4 py-3 text-sm shadow-sm">
+            <li key={log.id} className="flex items-center justify-between gap-2 rounded-2xl border border-gray-100 bg-white px-4 py-3 text-sm shadow-sm">
               <span>💧 {log.wateredDate}</span>
-              <span className="text-gray-500">{log.memo ?? ""}</span>
+              <span className="flex items-center gap-2">
+                <span className="text-gray-500">{log.memo ?? ""}</span>
+                <DeleteWateringButton wateringId={log.id} />
+              </span>
             </li>
           ))}
         </ul>

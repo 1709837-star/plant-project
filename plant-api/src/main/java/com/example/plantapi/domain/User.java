@@ -14,6 +14,7 @@ import java.util.List;
 @ToString(exclude = "myPlants")
 public class User extends BaseEntity {
 
+    /* 사용자 id */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,7 +32,7 @@ public class User extends BaseEntity {
     private String nickname;
 
     // 내 식물들. 회원 탈퇴하면 식물도 같이 지워져
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) // 한 명의 유저가, 여러 개의 내 식물을 가짐
     @Builder.Default
     private List<MyPlant> myPlants = new ArrayList<>();
 

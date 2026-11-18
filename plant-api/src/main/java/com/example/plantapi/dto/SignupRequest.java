@@ -1,5 +1,5 @@
-// SignupRequest.java
 package com.example.plantapi.dto;
+/* 회원가입 들어오는 것 */
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -7,21 +7,24 @@ import lombok.*;
 @Table(name = "species", indexes = {
         @Index(name = "idx_species_name", columnList = "name"),
         @Index(name = "idx_species_light", columnList = "light_level")
-})
+}) // 인덱스 : 이름으로 검색하거나, 광도로 필터할 때 빨리 찾으라고 만듦
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Species extends BaseEntity {
 
+    /* 식물 도감 id */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 식물 이름, 크롤링 중복 방지용으로 unique
+    /* 식물 이름 */
+    // 크롤링 중복 방지용으로 unique
     @Column(nullable = false, unique = true, length = 100)
     private String name;
 
+    /* 상세정보 */
     // [상세정보] 분류, 예: 관엽식물
     @Column(length = 50)
     private String category;
@@ -38,6 +41,7 @@ public class Species extends BaseEntity {
     @Column(length = 50)
     private String growthWidth;
 
+    /* 관리정보 */
     // [관리정보] 배치장소, 예: 거실 창측
     @Column(length = 100)
     private String placement;
@@ -50,6 +54,7 @@ public class Species extends BaseEntity {
     @Column(length = 50)
     private String humidity;
 
+    /* 필터용 3개 */
     // 광도: LOW / MEDIUM / HIGH
     @Column(length = 20)
     private String lightLevel;
@@ -61,6 +66,7 @@ public class Species extends BaseEntity {
     // 겨울 최저온도(℃), 예: 몬스테라 10
     private Integer minWinterTemp;
 
+    /* 물주기 */
     // 크롤링 원문, 예: "겉흙이 마르면 충분히"
     @Column(length = 1000)
     private String waterNote;
@@ -92,11 +98,12 @@ public class Species extends BaseEntity {
     private String waterWinterNote;
 
 
-    // 출처, 농사로 상세 주소
+    /* 출처, 농사로 상세 주소 */
     @Column(length = 500)
     private String sourceUrl;
 
-    // 도감 대표 사진 URL, 크롤링으로 가져온 img 주소만 저장해. 파일 다운로드는 안 해
+    /* 도감 대표 사진 URL */
+    // 크롤링으로 가져온 img 주소만 저장해. 파일 다운로드는 안 해
     @Column(length = 500)
     private String imageUrl;
 

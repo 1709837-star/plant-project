@@ -13,20 +13,22 @@ import java.time.LocalDate;
 @ToString(exclude = "myPlant")
 public class WateringLog {
 
+    /* 물 준 기록 id */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 어느 내 식물의 기록인지
-    @ManyToOne(fetch = FetchType.LAZY)
+    /* 어느 내 식물의 기록인지 */
+    @ManyToOne(fetch = FetchType.LAZY) // 여러 개의 물주기 기록이 하나의 내 식물을 가리킴
     @JoinColumn(name = "my_plant_id", nullable = false)
     private MyPlant myPlant;
 
-    // 물 준 날, 기본값은 오늘 (서비스에서 넣어줘)
+    /* 물 준 날 */
+    // 기본값은 오늘 (서비스에서 넣어줌)
     @Column(nullable = false)
     private LocalDate wateredDate;
 
-    // 메모
+    /* 메모 */
     @Column(length = 500)
     private String memo;
 }

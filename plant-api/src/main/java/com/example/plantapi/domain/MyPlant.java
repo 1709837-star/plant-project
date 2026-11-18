@@ -13,20 +13,23 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "wateringLogs")
+@ToString(exclude = "wateringLogs") // 기록이 수백 개일 때 출력이 너무 길어짐
 public class MyPlant extends BaseEntity{
 
+    /* 내 식물 id */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 도감 식물, nullable — 도감에 없는 식물도 직접 등록 가능
-    @ManyToOne(fetch = FetchType.LAZY)
+    /* 도감 식물 (종류) */
+    // nullable 안 적혀있음 - 도감에 없는 식물도 직접 등록 가능
+    @ManyToOne(fetch = FetchType.LAZY) // 여러 개의 내 식물이 하나의 도감 식물을 가리킬 수 있음
     @JoinColumn(name = "species_id")
     private Species species;
 
-    // 누구 식물인지. 로그인 필수라 비울 수 없어
-    @ManyToOne(fetch = FetchType.LAZY)
+    /* 누구 식물인지 */
+    // 로그인 필수라 비울 수 없음
+    @ManyToOne(fetch = FetchType.LAZY) // 여러 개의 내 식물이 한 명의 유저를 가리킴
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -58,17 +61,20 @@ public class MyPlant extends BaseEntity{
     private String photoUrl;
 
 
-    // 물 준 기록들. 내 식물 지우면 기록도 같이 지워져 (Post → Comment랑 똑같아)
+    /* 물 준 기록들 */
+    // 내 식물 지우면 기록도 같이 지워짐
     @OneToMany(mappedBy = "myPlant", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<WateringLog> wateringLogs = new ArrayList<>();
 
-    // 내 식물 간격
+    /* D-day 계산 */
+    // (1) 물주기 간격
     public Integer getEffectiveWateringIntervalDays() {
         return wateringIntervalDays;
     }
 
-    // 다음 물 줄 날 = 마지막 물 준 날 + 간격
+
+    // (2) 다음 물 줄 날 = 마지막 물 준 날 + 간격
     public LocalDate getNextWateringDate() {
         Integer interval = getEffectiveWateringIntervalDays();
         if (interval == null) {
@@ -77,16 +83,17 @@ public class MyPlant extends BaseEntity{
         return lastWateredDate.plusDays(interval);
     }
 
-    // D-day: 0이면 오늘, 음수면 지난 거야. 서버 시간 기준
+    // (3) D-day: 0이면 오늘, 음수면 지난 거야. 서버 시간 기준
     public Long getDDay() {
         LocalDate next = getNextWateringDate();
         if (next == null) {
             return null;
         }
-        return ChronoUnit.DAYS.between(LocalDate.now(), next);
+        return ChronoUnit.DAYS.between(LocalDate.now(), next); // 두 날짜 사이의 일수를 셈
     }
 
-    // 물주기 버튼: 기록은 서비스에서 만들고, 여기는 마지막 물 준 날짜만 갱신
+    /* 물주기 버튼 */
+    // 물주기 버튼을 누르면 서비스가 이걸 부름. 마지막 물 준 날을 오늘로 바꾸고, D-day가 다시 계산
     public void markWatered(LocalDate wateredDate) {
         this.lastWateredDate = wateredDate;
     }

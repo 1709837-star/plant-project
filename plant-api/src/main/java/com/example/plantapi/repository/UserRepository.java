@@ -1,5 +1,5 @@
 package com.example.plantapi.repository;
-
+/* 로그인 관련 */
 import com.example.plantapi.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
