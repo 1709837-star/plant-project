@@ -10,11 +10,16 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   const { id } = await params; // 주소에서 id 꺼내옴
   const cookie = (await cookies()).toString();
   const formData = await req.formData();
+
   const res = await fetch(`${API_BASE}/api/my-plants/${id}/photo`, {
     method: "POST",
     headers: { Cookie: cookie },
     body: formData,
   });
+  // forward()는 Content-Type을 application/json으로 고정하고 body를 JSON.stringfy로 바꿔버림
+  // 그러면 파일이 깨져서 FastAPI가 못 받는다
+  // 그래서 forward() 안 쓰고 직접 fetch로 보냄
+
   const data = await res.json().catch(() => ({})); // 스프링이 준 답을 JSON으로 읽음
   return NextResponse.json(data, { status: res.status });
 }

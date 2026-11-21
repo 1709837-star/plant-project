@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
 
+// plant-api IdentifyRepository (dto)랑 같은 형태
 type TopItem = { korean: string; english: string; speciesId: number | null; confidence: number };
 type Result = {
   speciesName: string | null;
@@ -21,6 +22,7 @@ export default function IdentifyModal() {
   const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // 사진 고르기
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
     if (!f) return;
@@ -29,13 +31,14 @@ export default function IdentifyModal() {
     setResult(null);
   };
 
+  // 분석하기
   const onSubmit = async () => {
     if (!file) return;
     setLoading(true);
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", file);  // FormData에 파일을 담아
     const res = await fetch("/api/plants/identify", { method: "POST", body: formData });
-    setResult(await res.json());
+    setResult(await res.json());    // 돌아온 JSON을 result에 담아
     setLoading(false);
   };
 
