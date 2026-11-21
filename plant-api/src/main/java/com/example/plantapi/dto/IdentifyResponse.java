@@ -5,9 +5,10 @@ import java.util.List;
 public record IdentifyResponse(
         String speciesName,
         Long speciesId,
+        String imageUrl,
         Double confidence,
         Boolean isUnknown,
         List<TopItem> top3
 ) {
-    public record TopItem(String korean, String english, Double confidence) {}
+    public record TopItem(String korean, String english, Long speciesId, Double confidence) {}
 }

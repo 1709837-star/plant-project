@@ -33,4 +33,6 @@ public interface SpeciesRepository extends JpaRepository<Species, Long> {
     // Fast API
     Optional<Species> findByName(String name);
 
+    Optional<Species> findFirstByNameContaining(String name);
+
 }

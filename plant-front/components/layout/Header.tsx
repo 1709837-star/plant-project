@@ -5,6 +5,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { getMe } from "@/lib/api";
 import LogoutButton from "./LogoutButton";
+import IdentifyModal from "../IdentifyModal";
 
 export default async function Header() {
   // 페이지 그려지기 전에 쿠키를 꺼내서 "로그인한 사람이 누군지" 먼저 물어봄
@@ -22,6 +23,7 @@ export default async function Header() {
 
         {/* 오른쪽: 아이콘 메뉴 */}
         <nav className="flex items-center gap-4 text-xl">
+          <IdentifyModal />
           <Link href="/species" title="식물 도감">🌱</Link>
           <Link href="/plants" title="나의 정원">🌳</Link>
           {me ? (
